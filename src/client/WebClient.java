@@ -8,9 +8,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 
 public class WebClient {
+
+  public static final String SERVER_IP = "134.60.77.151";
+  public static final int SERVER_PORT = 7777;
 
   InetAddress address;
   int port;
@@ -18,6 +22,11 @@ public class WebClient {
 
   public WebClient(InetAddress address, int port) {
     this.address = address;
+    this.port = port;
+  }
+
+  public WebClient(String ip, int port) throws UnknownHostException {
+    this.address = InetAddress.getByName(ip);
     this.port = port;
   }
 

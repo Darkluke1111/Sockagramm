@@ -11,7 +11,10 @@ public class App extends Application{
 
   @Override
   public void start(Stage primaryStage) throws Exception {
-    View view = new View(primaryStage);
+    View view = new View();
+    Controller controller = new Controller();
+    view.connectHandlers(controller);
+    primaryStage.setScene(view.scene);
     primaryStage.show();
   }
 }

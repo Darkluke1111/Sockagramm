@@ -1,11 +1,11 @@
 package client;
 
 import java.io.File;
+import java.util.Arrays;
+
+import javafx.collections.FXCollections;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -23,12 +23,11 @@ public class View {
   
   private GridPane gp;
   
-  private Button selectFilter;
+  private ChoiceBox selectFilter;
   private Button selectInput;
+  private Button convert;
 
   private MenuBar mb;
-
-  private File defaultImage = new File("test.jpg");
 
   public View() {
     createScene();
@@ -40,13 +39,20 @@ public class View {
 
     gp = new GridPane();
 
-    selectFilter = new Button("Select Filter");
+
     selectInput = new Button("Select Image");
+
+    convert = new Button("Convert");
+
+    selectFilter = new ChoiceBox();
+    selectFilter.setItems(FXCollections.observableList(Arrays.asList(Filter.values())));
+    selectFilter.getSelectionModel().selectFirst();
 
     gp.add(selectFilter, 1, 1);
     gp.add(selectInput, 2, 1);
+    gp.add(convert, 3, 1);
 
-    inputImage = new ImageView(new Image(defaultImage.toURI().toString()));
+    inputImage = new ImageView();
     outputImage = new ImageView();
 
     gp.add(inputImage, 1, 2);
@@ -62,7 +68,12 @@ public class View {
   }
   
   public void connectHandlers(Controller controller) {
-    selectInput.setOnAction(controller::selectImageFile);
+    controller.setView(this);
+    selectInput.setOnAction(controller::handleSelectImageFile);
+    selectFilter.getSelectionModel()
+            .selectedIndexProperty()
+            .addListener(controller::handlerFilterChange);
+    convert.setOnAction(controller::handleConversion);
   }
 
 }
