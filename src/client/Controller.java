@@ -10,12 +10,23 @@ import java.io.File;
 import java.net.UnknownHostException;
 
 public class Controller {
+  private static final File DEFAULT_PIC = new File("ressources\\default.jpg");
+
   private View view;
 
   private byte filterNumber = 0;
 
   private Image inputImage;
   private File inputFile;
+
+  private Image outputImage;
+
+  public Controller() {
+    inputFile = DEFAULT_PIC;
+    inputImage = new Image(DEFAULT_PIC.toURI().toString());
+    outputImage = new Image(DEFAULT_PIC.toURI().toString());
+  }
+
   
   public void handleSelectImageFile(ActionEvent event) {
     
@@ -42,6 +53,8 @@ public class Controller {
         WebClient wc = new WebClient(WebClient.SERVER_IP, WebClient.SERVER_PORT);
         File outputFile = new File(inputFile.getParent() + "\\" + inputFile.getName().replace(".","_conv."));
         wc.sendRequest(filterNumber,inputFile, outputFile);
+        outputImage = new Image(outputFile.toURI().toString());
+        view.outputImage.setImage(outputImage);
       } catch (UnknownHostException e) {
         e.printStackTrace();
       } catch (BadResponseException e) {
@@ -58,5 +71,11 @@ public class Controller {
     return view;
   }
 
+  public Image getInputImage() {
+    return inputImage;
+  }
 
+  public Image getOutputImage() {
+    return outputImage;
+  }
 }

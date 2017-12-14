@@ -38,6 +38,8 @@ public class View {
     root = new BorderPane();
 
     gp = new GridPane();
+    gp.setMaxHeight(600);
+    gp.setMaxWidth(800);
 
 
     selectInput = new Button("Select Image");
@@ -53,7 +55,11 @@ public class View {
     gp.add(convert, 3, 1);
 
     inputImage = new ImageView();
+    inputImage.setPreserveRatio(true);
+    inputImage.setFitHeight(200);
     outputImage = new ImageView();
+    outputImage.setPreserveRatio(true);
+    outputImage.setFitHeight(200);
 
     gp.add(inputImage, 1, 2);
     gp.add(outputImage, 2, 2);
@@ -74,6 +80,8 @@ public class View {
             .selectedIndexProperty()
             .addListener(controller::handlerFilterChange);
     convert.setOnAction(controller::handleConversion);
+    inputImage.setImage(controller.getInputImage());
+    outputImage.setImage(controller.getOutputImage());
   }
 
 }
