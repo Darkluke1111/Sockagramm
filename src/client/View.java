@@ -13,39 +13,56 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class View {
-  BorderPane root;
-  Stage stage;
-  Scene scene;
-  File defaultImage = new File("test.jpg");
 
-  public View(Stage stage) {
+  public Scene scene;
+  public ImageView inputImage;
+  public ImageView outputImage;
+  
+  
+  private BorderPane root;
+  
+  private GridPane gp;
+  
+  private Button selectFilter;
+  private Button selectInput;
+
+  private MenuBar mb;
+
+  private File defaultImage = new File("test.jpg");
+
+  public View() {
+    createScene();
+  }
+  
+  private void createScene() {
 
     root = new BorderPane();
 
-    GridPane gp = new GridPane();
+    gp = new GridPane();
 
-    Button selectFilter = new Button("Select Filter");
-    Button selectInput = new Button("Select Image");
+    selectFilter = new Button("Select Filter");
+    selectInput = new Button("Select Image");
 
     gp.add(selectFilter, 1, 1);
     gp.add(selectInput, 2, 1);
 
-    ImageView inputImage = new ImageView(new Image(defaultImage.toURI().toString()));
-    ImageView outputImage = new ImageView();
+    inputImage = new ImageView(new Image(defaultImage.toURI().toString()));
+    outputImage = new ImageView();
 
     gp.add(inputImage, 1, 2);
     gp.add(outputImage, 2, 2);
 
     root.setCenter(gp);
 
-    MenuItem item1 = new MenuItem();
-    Menu m = new Menu();
-    MenuBar mb = new MenuBar();
+    mb = new MenuBar();
     root.setTop(mb);
 
 
     scene = new Scene(root);
-    stage.setScene(scene);
+  }
+  
+  public void connectHandlers(Controller controller) {
+    selectInput.setOnAction(controller::selectImageFile);
   }
 
 }
