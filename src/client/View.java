@@ -1,16 +1,18 @@
 package client;
 
-import java.io.File;
-import java.util.Arrays;
-
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+
+import java.util.Arrays;
 
 public class View {
 
@@ -21,6 +23,8 @@ public class View {
   
   
   private BorderPane root;
+
+  private HBox controlls;
   
   private GridPane gp;
   
@@ -42,7 +46,7 @@ public class View {
     gp.setMaxHeight(600);
     gp.setMaxWidth(800);
 
-
+    controlls = new HBox();
     selectInput = new Button("Select Image");
 
     convert = new Button("Convert");
@@ -51,9 +55,9 @@ public class View {
     selectFilter.setItems(FXCollections.observableList(Arrays.asList(Filter.values())));
     selectFilter.getSelectionModel().selectFirst();
 
-    gp.add(selectFilter, 1, 1);
-    gp.add(selectInput, 2, 1);
-    gp.add(convert, 3, 1);
+
+    controlls.getChildren().addAll(selectFilter, selectInput, convert);
+
 
     inputImage = new ImageView();
     inputImage.setPreserveRatio(true);
@@ -62,6 +66,8 @@ public class View {
     outputImage.setPreserveRatio(true);
     outputImage.setFitHeight(200);
 
+    gp.add(controlls,1,1);
+    gp.setColumnSpan(controlls,3);
     gp.add(inputImage, 1, 2);
     gp.add(outputImage, 2, 2);
 

@@ -32,7 +32,8 @@ public class Controller {
     
     FileChooser fc = new FileChooser();
     ExtensionFilter extFilterJPG = new ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-    fc.getExtensionFilters().add(extFilterJPG);
+    ExtensionFilter extFilterPNG = new ExtensionFilter("PNG files (*.png)", "*.png");
+    fc.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
     
     File file = fc.showOpenDialog(null);
     view.notifier.setText("no file selected");
