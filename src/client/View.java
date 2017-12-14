@@ -17,6 +17,7 @@ public class View {
   public Scene scene;
   public ImageView inputImage;
   public ImageView outputImage;
+  public Label notifier;
   
   
   private BorderPane root;
@@ -68,6 +69,9 @@ public class View {
 
     mb = new MenuBar();
     root.setTop(mb);
+
+    notifier = new Label();
+    root.setBottom(notifier);
 
 
     scene = new Scene(root);

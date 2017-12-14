@@ -66,7 +66,7 @@ public class WebClient {
 
       //throw Exception if there was an error
       if (status != 0) {
-        throw new BadResponseException("An Error occured! Error Code: " + status);
+        throw new BadResponseException("An Error occured! Error Code: " + status, status);
       }
 
       //read response file length
