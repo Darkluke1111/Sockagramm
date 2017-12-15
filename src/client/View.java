@@ -1,5 +1,6 @@
 package client;
 
+import java.util.Arrays;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,9 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-
-import java.util.Arrays;
 
 public class View {
 
@@ -47,6 +45,8 @@ public class View {
     gp.setMaxWidth(800);
 
     controlls = new HBox();
+    controlls.setSpacing(10);
+
     selectInput = new Button("Select Image");
 
     convert = new Button("Convert");
@@ -70,6 +70,8 @@ public class View {
     gp.setColumnSpan(controlls,3);
     gp.add(inputImage, 1, 2);
     gp.add(outputImage, 2, 2);
+    gp.setHgap(10);
+    gp.setVgap(10);
 
     root.setCenter(gp);
 
@@ -88,7 +90,7 @@ public class View {
     selectInput.setOnAction(controller::handleSelectImageFile);
     selectFilter.getSelectionModel()
             .selectedIndexProperty()
-            .addListener(controller::handlerFilterChange);
+            .addListener(controller::handleFilterChange);
     convert.setOnAction(controller::handleConversion);
     inputImage.setImage(controller.getInputImage());
     outputImage.setImage(controller.getOutputImage());

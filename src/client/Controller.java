@@ -45,7 +45,7 @@ public class Controller {
     }
   }
 
-  public void handlerFilterChange(Observable observable, Number oldVal, Number newVal) {
+  public void handleFilterChange(Observable observable, Number oldVal, Number newVal) {
     filterNumber = newVal.byteValue();
     view.notifier.setText("Changed Filter from " + Filter.values()[oldVal.intValue()]
                           + " to " + Filter.values()[newVal.intValue()]);
